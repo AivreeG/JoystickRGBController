@@ -1,12 +1,12 @@
 #include <math.h>
-int blue = 6;
-int green = 5;
-int red = 3;
-int yPin = A1;
-int xPin = A0;
-double greenMax = 255;
-double redMax = 255 * .5;
-double blueMax = 255;
+#define BLUE_PIN 6;
+#define GREEN_PIN 5
+#define RED_PIN 3
+#define yPin A1
+#define xPin A0
+const double GREEN_MAX_VAL = 255;
+const double RED_MAX_VAL = 255 * .5;
+const double BLUE_MAX_VAL = 255;
 double yVal;
 double xVal;
 double xIn;
@@ -18,10 +18,9 @@ double r;
 
 // the setup routine runs once when you press reset:
 void setup() {
-  Serial.begin(9600);
-  pinMode(blue, OUTPUT);
-  pinMode(green, OUTPUT);
-    pinMode(red, OUTPUT);
+  pinMode(BLUE_PIN, OUTPUT);
+  pinMode(GREEN_PIN, OUTPUT);
+  pinMode(RED_PIN, OUTPUT);
 
 }
 
@@ -41,27 +40,27 @@ void loop() {
   else if (xVal >= 0 && yVal < 0) deg = (90 - deg) + 270;
   
   if(r <= 5){
-    analogWrite(blue, blueMax);
-    analogWrite(green, greenMax);
-    analogWrite(red, redMax);
+    analogWrite(BLUE_PIN, BLUE_MAX_VAL);
+    analogWrite(GREEN_PIN, GREEN_MAX_VAL);
+    analogWrite(RED_PIN, RED_MAX_VAL);
   }
   else if(deg > 0 && deg <= 120){
-  pwm = map(deg, 0, 120, 0, 255);
-  analogWrite(green, 0);
-  analogWrite(blue, 255 - pwm);
-  analogWrite(red, pwm);
+    pwm = map(deg, 0, 120, 0, 255);
+    analogWrite(GREEN_PIN, 0);
+    analogWrite(BLUE_PIN, 255 - pwm);
+    analogWrite(RED_PIN, pwm);
   }
   else if (deg > 120 && deg <= 240){
-  pwm = map(deg, 120, 240, 0, 255);
-  analogWrite(blue, 0);
-  analogWrite(red, 255 - pwm);
-  analogWrite(green, pwm);
+    pwm = map(deg, 120, 240, 0, 255);
+    analogWrite(BLUE_PIN, 0);
+    analogWrite(RED_PIN, 255 - pwm);
+    analogWrite(GREEN_PIN, pwm);
   }
   else if (deg > 240 && deg < 360){
     pwm = map(deg, 240, 360, 0, 255);
-    analogWrite(red, 0);
-    analogWrite(green, 255 - pwm);
-    analogWrite(blue, pwm);
+    analogWrite(RED_PIN, 0);
+    analogWrite(GREEN_PIN, 255 - pwm);
+    analogWrite(BLUE_PIN, pwm);
   }
 }
 
